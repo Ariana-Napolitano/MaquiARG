@@ -11,15 +11,6 @@ import Registro from "./components/Registro";
 import Login from "./components/Login";
 
 function App() {
-  const [users, setUsers] = useState([]);
-
-  const usuario = { nombre: "fran", apellido: "co", mail: "asd@gmail.com" };
-
-  const addUsers = (usuario = {}) => {
-    console.log("Esta función se ejecuta en Registro");
-    setUsers([...users, usuario]);
-  };
-
   return (
     <>
       <ReactNavbar />

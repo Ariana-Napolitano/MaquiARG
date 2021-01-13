@@ -1,69 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
+import { Form, Col, Button } from "react-bootstrap";
+import axios from "axios";
 
 const Login = () => {
+  const [usuario, setUsuario] = useState({
+    mail: "",
+    password: "",
+  });
+
+  const [error, setError] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); //
+
+    setError(false);
+    //addUsers(usuario); //addUsers estado ppal (app.js)
+    setUsuario({
+      mail: "",
+      password: "",
+    });
+    axios
+      .post("http://localhost:3001/auth", {
+        mail: usuario.mail,
+        password: usuario.password,
+      })
+      .then((user) => {
+        /* */
+      });
+  };
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setUsuario({
+      ...usuario, // guardo el contenido previo en el setter
+      [name]: value, // agregando el contenido nuevo
+    });
+  };
   return (
     <>
-      <div>
-        <p className="login">Ingresa a tu cuenta si ya tienes una</p>
-        <div className="container_ingreso">
-          <div className="row justify-content-center">
-            <div className="col-4">
-              <form method="post" action="/login">
-                <div className=" menu">
-                  <div className="form-group">
-                    <label htmlFor="exampleDropdownFormEmail1">
-                      Nombre de usuario
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control nombreUsuario"
-                      id="nombre"
-                      name="nombre"
-                      placeholder="Ariana1234"
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="exampleDropdownFormPassword1">
-                      Contraseña
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="pass"
-                      name="pass"
-                      placeholder="*******"
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <div className="form-check">
-                      <input
-                        type="checkbox"
-                        className="form-check-input"
-                        id="dropdownCheck"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="dropdownCheck"
-                      >
-                        Recordarme
-                      </label>
-                    </div>
-                  </div>
-                  <button type="submit" className="btn btn-dark">
-                    Ingresar
-                  </button>
-                  <div className="dropdown-divider" />
-                  <a className="dropdown-item" href="/registro">
-                    Nuevo? Registrate
-                  </a>
-                </div>
-              </form>
-            </div>
-          </div>
+      <Form onSubmit={handleSubmit}>
+        <div className="col-6">
+          <Form.Group as={Col} controlId="formGridEmail">
+            <label htmlFor="mail">Mail</label>
+            <input
+              type="email"
+              placeholder="mail"
+              className="form-control"
+              id="mail"
+              name="mail"
+              value={usuario.mail}
+              onChange={handleInput}
+            />
+          </Form.Group>
         </div>
-      </div>
+        <div className="col-6">
+          <Form.Group as={Col} controlId="formGridPassword">
+            <label htmlFor="password">Contraseña</label>
+            <input
+              type="password"
+              placeholder="*****"
+              className="form-control"
+              id="password"
+              name="password"
+              value={usuario.password}
+              onChange={handleInput}
+            />
+          </Form.Group>
+        </div>
+
+        <Button variant="dark" type="submit">
+          Ingresar
+        </Button>
+      </Form>
     </>
   );
 };

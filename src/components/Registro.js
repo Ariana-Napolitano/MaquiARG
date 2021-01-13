@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import Error from "./Error";
 import { Form, Col, Button } from "react-bootstrap";
+import axios from "axios";
 
-const Registro = ({ addUsers }) => {
+const Registro = () => {
   const [usuario, setUsuario] = useState({
     nombre: "",
     apellido: "",
     mail: "",
     password: "",
-    direccionEnvio: {
-      direccion: "",
-      ciudad: "",
-      provincia: "",
-      cp: "",
-    },
+    direccion: "",
+    ciudad: "",
+    provincia: "",
+    cp: "",
   }); // return [getter, setter]
+  /*const [users, setUsers] = useState([]);
+  const addUsers = (usuario = {}) => {
+    console.log("Esta función se ejecuta en Registro");
+    setUsers([...users, usuario]);
+  };*/
 
   const [error, setError] = useState(false);
 
@@ -22,19 +26,28 @@ const Registro = ({ addUsers }) => {
     e.preventDefault(); //
 
     setError(false);
-    addUsers(usuario); //addUsers estado ppal (app.js)
+    //addUsers(usuario); //addUsers estado ppal (app.js)
     setUsuario({
       nombre: "",
       apellido: "",
       mail: "",
       password: "",
-      direccionEnvio: {
-        direccion: "",
-        ciudad: "",
-        provincia: "",
-        cp: "",
-      },
+      direccion: "",
+      ciudad: "",
+      provincia: "",
+      cp: "",
     });
+
+    axios
+      .post(`http://localhost:3001/registro`, usuario)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch((e) => {
+        setError(true);
+        console.log(e);
+      });
   };
 
   const handleInput = (e) => {
@@ -159,6 +172,24 @@ const Registro = ({ addUsers }) => {
               <option value="Buenos Aires">Buenos Aires</option>
               <option value="Cordoba">Córdoba</option>
               <option value="Chubut">Chubut</option>
+              <option value="Catamarca">Catamarca</option>
+              <option value="Corrientes">Corrientes</option>
+              <option value="Salta">Salta</option>
+              <option value="Tucuman">Tucuman</option>
+              <option value="Tierra del fuego">Tierra del fuego</option>
+              <option value="Misiones">Misiones</option>
+              <option value="Santa Cruz">Santa Cruz</option>
+              <option value="Entre Rios">Entre Rios</option>
+              <option value="San Luis">San Luis</option>
+              <option value="San Juan">San Juan</option>
+              <option value="La Pampa">La Pampa</option>
+              <option value="Chaco">Chaco</option>
+              <option value="Santa Fe">Santa Fe</option>
+              <option value="Mendoza">Mendoza</option>
+              <option value="Rio Negro">Rio Negro</option>
+              <option value="Jujuy">Jujuy</option>
+              <option value="La Rioja">La Rioja</option>
+              <option value="Santiago del Estero">Santiago del Estero</option>
             </Form.Control>
           </Form.Group>
 
