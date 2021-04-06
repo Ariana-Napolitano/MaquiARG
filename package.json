@@ -13,11 +13,14 @@
     "bootstrap": "^4.5.3",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
+    "react-dnd": "^5.0.0",
+    "react-dnd-html5-backend": "^3.0.2",
     "react-dom": "^17.0.1",
     "react-joi-validation": "^1.7.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-shopping-cart": "^1.9.4",
+    "react-tag-input": "^6.5.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+
 export const Carrito = (props) => {
   const [carts, setCarts] = useState([]);
   const [payload, setPayloader] = useState({});
   const [hasError, setError] = useState(false);
+
   async function fetchCart() {
-    const res = await fetch("http://localhost:3000/carrito");
+    const res = await fetch("http://localhost:3001/carrito");
     res
       .json()
       .then((res) => {
@@ -18,7 +20,7 @@ export const Carrito = (props) => {
   }
   async function aumentarCantidad(id) {
     try {
-      const res = await fetch("http://localhost:3000/carrito", {
+      const res = await fetch("http://localhost:3001/carrito", {
         method: "POST",
         body: JSON.stringify({
           productId: id,
@@ -37,7 +39,7 @@ export const Carrito = (props) => {
   }
   async function emptyCart() {
     try {
-      const res = await fetch("http://localhost:3000/carrito", {
+      const res = await fetch("http://localhost:3001/carrito", {
         method: "DELETE",
       });
       await res.json();
@@ -75,7 +77,7 @@ export const Carrito = (props) => {
                       <th className="b-0">Nombre</th>
                       <th className="b-0">Precio</th>
                       <th className="b-0">Cantidad</th>
-                      <th className="b-0 text-right">Precio Total</th>
+                      <th className="b-0 text-right">subTotal</th>
                     </tr>
                     {carts.map((item, i) => (
                       <tr>
@@ -100,14 +102,14 @@ export const Carrito = (props) => {
                     ))}
                     <tr>
                       <td colspan="3" align="right">
-                        Subtotal :{payload.subTotal}
+                        Total :{payload.subTotal}
                       </td>
                       <td colspan="4" align="right">
                         <button
                           className="btn btn-danger"
                           onClick={(e) => emptyCart()}
                         >
-                          Carrito Vacio
+                          Vaciar Carrito
                         </button>
                       </td>
                     </tr>
@@ -121,3 +123,5 @@ export const Carrito = (props) => {
     </main>
   );
 };
+
+export default Carrito;

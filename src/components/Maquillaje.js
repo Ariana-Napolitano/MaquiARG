@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
 const Maquillaje = () => {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(false);
@@ -9,14 +9,24 @@ const Maquillaje = () => {
   // Componentes funcionales
   useEffect(() => {
     // peticion HTTP
-    fetch("http://localhost:3000/maquillaje")
-      .then((response) => response.json())
-      .then(({ results }) => {
+    fetch("http://localhost:3001/productos?categorias=maquillaje")
+      .then((res) => {
+        if (res.status == 200) {
+          return res.json();
+        } else {
+          throw "error";
+        }
+      })
+      .then((maquillajes) => {
         setFetching(false);
-        setItems(results);
+        maquillajes.forEach((element) => {
+          setItems((items) => [...items, element]);
+        });
         setError(false);
       })
-      .catch((e) => setError(true));
+      .catch((e) => {
+        setError(true);
+      });
   }, []);
 
   async function addToCart(id, cantidad) {
@@ -39,20 +49,6 @@ const Maquillaje = () => {
       console.log(err);
     }
   }
-  axios
-    .get("http://localhost:3001/productos?categoria=maquillaje", {
-      responseType: "json",
-    })
-    .then(function (res) {
-      if (res.status == 200) {
-        console.log(res.data);
-        document.getElementById("producto").innerHTML = res.data.title;
-      }
-      console.log(res);
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
 
   return (
     <>
@@ -60,9 +56,9 @@ const Maquillaje = () => {
       {items.map((item) => (
         <div className="col-4">
           <div id="producto" className="card m-2">
-            <img className="card-img-top" src={item.image} />
+            <img className="card-img-top" src={item.imagen} />
             <div className="card-body">
-              <h5 className="card-title">{item.name}</h5>
+              <h5 className="card-title">{item.nombre}</h5>
               <h3>{item.precio}</h3>
               <button
                 onClick={(e) => addToCart(item._id, 1)}

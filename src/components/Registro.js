@@ -10,10 +10,12 @@ const Registro = () => {
     mail: "",
     password: "",
     direccion: "",
-    ciudad: "",
+    cuidad: "",
     provincia: "",
     cp: "",
-  }); // return [getter, setter]
+  });
+
+  // return [getter, setter]
   /*const [users, setUsers] = useState([]);
   const addUsers = (usuario = {}) => {
     console.log("Esta función se ejecuta en Registro");
@@ -27,19 +29,27 @@ const Registro = () => {
 
     setError(false);
     //addUsers(usuario); //addUsers estado ppal (app.js)
+
     setUsuario({
       nombre: "",
       apellido: "",
       mail: "",
       password: "",
-      direccion: "",
-      ciudad: "",
-      provincia: "",
-      cp: "",
     });
 
     axios
-      .post(`http://localhost:3001/registro`, usuario)
+      .post(`http://localhost:3001/registro`, {
+        nombre: usuario.nombre,
+        apellido: usuario.apellido,
+        mail: usuario.mail,
+        password: usuario.password,
+        direccionEnvio: {
+          direccion: usuario.direccion,
+          ciudad: usuario.ciudad,
+          provincia: usuario.provincia,
+          cp: usuario.cp,
+        },
+      })
       .then((res) => {
         console.log(res);
         console.log(res.data);
@@ -56,6 +66,7 @@ const Registro = () => {
       ...usuario, // guardo el contenido previo en el setter
       [name]: value, // agregando el contenido nuevo
     });
+
     /*
     setUsuario({
       ...usuario, // guardo el contenido previo en el setter

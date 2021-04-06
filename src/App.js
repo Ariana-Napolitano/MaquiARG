@@ -9,6 +9,9 @@ import SkinCare from "./components/SkinCare";
 import Contacto from "./components/Contacto";
 import Registro from "./components/Registro";
 import Login from "./components/Login";
+import Carrito from "./components/Carrito";
+import Confirm from "./components/Confirm";
+import AltaProductos from "./components/AltaProductos";
 
 function App() {
   return (
@@ -36,6 +39,15 @@ function App() {
           </Route>
           <Route path="/marcas">
             <Marcas />
+          </Route>
+          <Route path="/carrito">
+            <Carrito />
+          </Route>
+          <Route path="/confirm/:uuid">
+            <Confirm />
+          </Route>
+          <Route path="/altaproductos">
+            <AltaProductos />
           </Route>
           <Route path="/"></Route>
         </Switch>

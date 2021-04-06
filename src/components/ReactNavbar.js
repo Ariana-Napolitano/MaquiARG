@@ -18,7 +18,9 @@ const ReactNavbar = () => {
             <FormControl type="text" placeholder="Buscar" className="mr-sm-2" />
             <Button variant="outline">Buscar</Button>
           </Form>
-          <FontAwesomeIcon icon={faShoppingCart} />
+          <a href="http://localhost:3000/carrito">
+            <FontAwesomeIcon icon={faShoppingCart} />
+          </a>
         </Navbar.Collapse>
       </Navbar>
       <Navbar bg="light" expand="lg">
