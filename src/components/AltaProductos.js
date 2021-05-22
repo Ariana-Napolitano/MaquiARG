@@ -13,11 +13,10 @@ const AltaProductos = () => {
   });
 
   const [colores, setColores] = useState([]);
-  console.log(`1colores: ${JSON.stringify(colores)}`);
 
   const [color, setColor] = useState({
     cnombre: "",
-    stock: "",
+    stock: 0,
   });
 
   const [error, setError] = useState(false);
@@ -42,7 +41,7 @@ const AltaProductos = () => {
 
     setColor({
       cnombre: "",
-      stock: "",
+      stock: 0,
     });
 
     axios
@@ -73,27 +72,23 @@ const AltaProductos = () => {
     });
     setProducto({
       ...producto,
-      // file: URL.createObjectURL(files),
       [name]: value,
     });
   };
 
   const handleDelete = (i) => {
-    console.log(`indice a borrar: ${i}`);
     setColores(colores.filter((_, index) => index !== i));
   };
 
   const handleAddition = () => {
-    console.log(`Tamanio antes: ${colores.length}`);
-    console.log(`colores: ${JSON.stringify(colores)}`);
-    console.log(`Color a insertar: ${JSON.stringify(color)}`);
-
-    const newColores = [...colores, color];
-    //newColores.push(color);
-    console.log(JSON.stringify(newColores));
-    setColores(["jskdvbrfbv"]);
-
-    console.log(`Tamanio despues: ${colores.length}`);
+    setColores([
+      ...colores, color
+    ]
+    )
+    setColor({
+      cnombre:'',
+      stock:0
+    })
   };
 
   return (
@@ -139,6 +134,31 @@ const AltaProductos = () => {
               </Form.Group>
               <Form.Group as={Col} controlId="formGridColor">
                 <label htmlFor="colores">Colores</label>
+                {colores.map((color, i) => (
+                  <InputGroup className="mb-2 mr-ms-2">
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>Nombre y Stock</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                    
+                    value={color.cnombre}
+                    
+                  />
+                  <FormControl
+                    
+                    value={color.stock}
+                   
+                  />
+                    <InputGroup.Append>
+                      <Button
+                        variant="outline-secondary"
+                        onClick={() => handleDelete(i)}
+                      >
+                        -
+                      </Button>
+                    </InputGroup.Append>
+                  </InputGroup>
+                ))}
                 <InputGroup className="mb-2 mr-ms-2">
                   <InputGroup.Prepend>
                     <InputGroup.Text>Nombre y Stock</InputGroup.Text>
@@ -162,23 +182,7 @@ const AltaProductos = () => {
                     </Button>
                   </InputGroup.Append>
                 </InputGroup>
-                {colores.map((color, i) => (
-                  <InputGroup className="mb-2 mr-ms-2">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text>Nombre y Stock</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl>{color.cnombre}</FormControl>
-                    <FormControl>{color.stock}</FormControl>
-                    <InputGroup.Append>
-                      <Button
-                        variant="outline-secondary"
-                        onClick={() => handleDelete(i)}
-                      >
-                        -
-                      </Button>
-                    </InputGroup.Append>
-                  </InputGroup>
-                ))}
+                
               </Form.Group>
               <Form.Group as={Col} controlId="formGridMarca">
                 <label htmlFor="marca">Marca</label>
